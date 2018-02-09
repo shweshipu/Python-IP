@@ -1,5 +1,4 @@
 #Written by Bryan Hernandez
-
 def ip_calc(ip,cidr):
 	ip_octet = ip.split('.')
 	ip_int = list(map(int, ip_octet))
