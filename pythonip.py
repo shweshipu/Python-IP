@@ -25,7 +25,7 @@ def calculate(ip_address):
 	
 	#netmask
 	#initialize netmask array
-	netmask = [-1,-1,-1,-1]
+	netmask = [0,0,0,0]
 	
 	#get how many octets are set to 255 by the cidr
 	full_octets = int(ip_address[4]/8)
@@ -47,10 +47,21 @@ def calculate(ip_address):
 	
 	
 	#network id
-	
+	#really slow but whatever
 	network_id = ip_address
+	broadcast = ip_address
 	net_number = 2**ip_address[4]%8
-	network_id[full_octets+1] = 
+	for i in range(0,net_number):
+		if(i*255/net_number < ip_address[full_octets+1] and (i+1)*255/net_number > ip_address[full_octets+1]):
+			network_id[full_octets+1] = i*255/net_number
+			broadcast[full_octets+1] = (i+1)*255/net_number
+	
+	print("network_id:")
+	print(network_id)
+	
+	print("broadcast:")
+	print(broadcast)
+	
 	#print out all the ip (without cidr) as one string
 	#network_id = [-1,-1,-1,-1]
 	#for i in range(0,4):
@@ -64,9 +75,14 @@ def calculate(ip_address):
 	
 	
 	#host range
+	#hostrange(ip_address)
 	hostrange = 2**(32-ip_address[4])
 	print("hostrange:") 
 	print("0 to",hostrange)
 
 #to test it
 print(calculate(input_ip()))
+
+
+#def hostrange(ip_address):
+	
