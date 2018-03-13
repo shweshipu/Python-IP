@@ -45,57 +45,20 @@ def calculate(ip_address):
 	print("netmask:")
 	print(netmask)
 	
-	
-	#network id
-	#really slow but whatever, also doesnt work
-	"""
-	network_id = ip_address
-	broadcast = ip_address
-	net_number = 2**ip_address[4]%8
-	for i in range(0,net_numb
-	er):
-		#find the nearest portion of the network that the ip fits into
-		if(i*256/net_number < ip_address[full_octets+1] and (i+1)*255/net_number > ip_address[full_octets+1]):
-			network_id[full_octets+1] = i*255/net_number
-			broadcast[full_octets+1] = (i+1)*255/net_number
-	
-	print("network_id:")
-	print(network_id)
-	
-	print("broadcast:")
-	print(broadcast)
-	"""
-	
-	#faster way
-	broadcast = [-1,-1,-1,-1]
-	network_id = [-1,-1,-1,-1]
-	#todo: put in or and and stuff
+	network_id = [0,0,0,0]
 	for i in range(0,4):
-		broadcast[i] = ip_address[i] | (~netmask[i])
 		network_id[i] = ip_address[i] & netmask[i]
-	
-	
-	#print out all the ip (without cidr) as one string
-	#network_id = [-1,-1,-1,-1]
-	#for i in range(0,4):
-	#	network_id[i] = ip_address[i]
 	print("network_id:")
 	print(network_id)
 	
+	broadcast_id = [0,0,0,0]
+	for i in range(0,4):
+		broadcast_id[i] = network_id[i] | 255 - netmask[i]
 	print("broadcast_id:")
-	print(broadcast)
-	#Broadcast
-	
-	
-	
-	#host range
-	#hostrange(ip_address)
-	hostrange = 2**(32-ip_address[4])
-	print("hostrange:") 
-	print("0 to",hostrange)
+	print(broadcast_id)
 
 #to test it
-print(calculate(input_ip()))
+calculate(input_ip())
 
 
 #def hostrange(ip_address):
